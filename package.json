@@ -1,0 +1,40 @@
+{
+  "name": "angular-simple-toast",
+  "version": "1.0.0",
+  "description": "A simple toast module for Angular 1",
+  "main": "dist/angular-simple-toast.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmsanpascual/angular-simple-toast.git"
+  },
+  "keywords": [
+    "toast",
+    "toaster",
+    "notification",
+    "angular",
+    "angularjs",
+    "simple"
+  ],
+  "author": "Julius Marvin S. San Pascual <jm.sanpascual@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jmsanpascual/angular-simple-toast/issues"
+  },
+  "homepage": "https://github.com/jmsanpascual/angular-simple-toast#readme",
+  "sass": "src/styles/angular-simple-toast.scss",
+  "style": "src/styles/angular-simple-toast.scss",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-cssmin": "^2.2.1",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^2.0.0"
+  },
+  "dependencies": {
+    "angular": "^1.5.8"
+  }
+}

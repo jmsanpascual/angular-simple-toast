@@ -1,0 +1,62 @@
+<!doctype html>
+<head>
+  <title>Toast Demo</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../dist/angular-simple-toast.css">
+</head>
+
+<html ng-app='myApp'>
+<body ng-controller='MainController as mc'>
+  <div class="container">
+    <div class="row">
+      <h1>Simple Toast Demo</h1>
+      <hr />
+
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <form>
+          <div class="form-group">
+            <label>Toast Message:</label>
+            <input class='form-control' type="text" ng-model='mc.toast.message'>
+          </div>
+
+          <div class="form-group">
+            <label>Toast Type:</label>
+            <div class="radio">
+              <label>
+                <input type="radio" ng-model="mc.toast.type" value="info"> Info
+              </label>
+              <label>
+                <input type="radio" ng-model="mc.toast.type" value="success"> Success
+              </label>
+              <label>
+                <input type="radio" ng-model="mc.toast.type" value="warning"> Warning
+              </label>
+              <label>
+                <input type="radio" ng-model="mc.toast.type" value="error"> Error
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Toast Is Closeable:</label>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="mc.toast.closeable"> Closeable
+              </label>
+            </div>
+          </div>
+
+          <button class='btn btn-default btn-block' ng-click='mc.show(mc.toast)'>
+            Show Toast
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.js"></script>
+  <script src="../dist/angular-simple-toast.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
