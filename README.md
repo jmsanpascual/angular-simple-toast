@@ -13,19 +13,24 @@ A simple toast module for Angular 1
 <script type="text/javascript" src="angular.js"></script>
 <script type="text/javascript" src="angular-simple-toast.js"></script>
 ```
-3. Add the ngSimpleToast module to you application.
+3. Include the angular-simple-toast.css to your index page for the toast design.
+
+```html
+<link rel="stylesheet" type="text/css" href="angular-simple-toast.css">
+```
+4. Add the ngSimpleToast module to you application.
 
 ```javascript
 angular.module('myApp', ['ngSimpleToast']);
 ```
-4. You can now use the injectable service 'toast'.
+5. You can now use the injectable service 'toast'.
 
 ```javascript
 angular.module('myApp').controller(function (toast) {
   toast.info('This is a toast');
 });
 ```
-5. You can also set the default app-wide configuration for toast
+6. You can also set the default app-wide configuration for toast
 
 ```javascript
 angular.module('myApp').config(function (toastProvider) {
@@ -34,6 +39,25 @@ angular.module('myApp').config(function (toastProvider) {
     duration: 10000 // Defaults to 5000
   });
 });
+```
+
+## Animations
+1. If you want to add animations, just download angular-animate.
+
+```shell
+  npm install angular-animate
+```
+2. Include it to your index page's scripts.
+
+```html
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="angular-animate.js"></script>
+<script type="text/javascript" src="angular-simple-toast.js"></script>
+```
+3. Then add it to your module, and animations will work out of the box.
+
+```javascript
+angular.module('myApp', ['ngAnimate', 'ngSimpleToast']);
 ```
 
 ## API Documentation
