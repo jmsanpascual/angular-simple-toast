@@ -51,7 +51,6 @@ This sets the global configuration that the toast will use.
   - config.duration (`Integer`) Defaults to `5000`, duration for closing the toast automatically
   - config.closeable (`Boolean`) Defaults to `false`, adds a close button to toast (Overrides autoClose, thus if set to true, toast will not close automatically)
 
-
 ```javascript
 toast.make(type, message, closeable);
 ```
@@ -63,7 +62,6 @@ This method appends and shows the toast in the toast list.
 #### Return:
 - The toast object
 > Behavior: This will dismiss the toast automatically if autoClose is true and closeable is false
-
 
 ```javascript
 toast.info(message, closeable);
@@ -78,24 +76,20 @@ These are helper methods that calls toast.make(type, message, closeable) interna
 #### Return:
 - The toast object
 
-
 ```javascript
 toast.dismiss(toastId);
 ```
 This removes the toast with the specified id after the duration specified in the config.
-
 
 ```javascript
 toast.retain(toastId);
 ```
 This cancels the removal of the toast with the specified id. (Contradicts toast.dismiss())
 
-
 ```javascript
 toast.clear();
 ```
 This removes all the toast.
-
 
 ```javascript
 toast.destroy();
@@ -103,7 +97,7 @@ toast.destroy();
 This removes the toast-list directive and resets everything.
 
 
-> A behavior to be noted. When a toast is hovered it will rest the duration of autoClose, upon unhovering the autoClose will trigger again. This behavior ignores the closeable configuration.
+> A behavior to be noted. When a toast is hovered it will reset the duration of auto close, upon unhovering, the auto close will trigger again. This behavior ignores the closeable configuration.
 
 ## Inspirations and Motivations
 - https://github.com/tameraydin/ngToast
@@ -112,7 +106,7 @@ This removes the toast-list directive and resets everything.
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/jmsanpascual/angular-simple-toast/blob/master/LICENSE) file for details
 
-## TODO
+## To Do
 - [ ] Unit tests
 - [ ] Add static icons to toast
 - [ ] Support for changing toast position (top-left, bottom-right, etc.)
