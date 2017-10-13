@@ -27,14 +27,12 @@
   "sass": "src/styles/angular-simple-toast.scss",
   "style": "src/styles/angular-simple-toast.scss",
   "devDependencies": {
+    "angular": "^1.5.8",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.0.0",
     "grunt-contrib-cssmin": "^2.2.1",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-sass": "^2.0.0"
-  },
-  "dependencies": {
-    "angular": "^1.5.8"
   }
 }
