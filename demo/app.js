@@ -17,10 +17,26 @@
                 type: 'info',
                 closeable: false
             };
+            vm.options = {
+                autoClose: true,
+                duration: 5000
+            };
+        };
+
+        vm.optionChange = function (option) {
+            toast.config(option);
         };
 
         vm.show = function (_toast) {
             toast[_toast.type](_toast.message, _toast.closeable);
+        };
+
+        vm.clear = function () {
+            toast.clear();
+        };
+
+        vm.destroy = function () {
+            toast.destroy();
         };
     }
 })();

@@ -38,17 +38,45 @@
           </div>
 
           <div class="form-group">
+            <div class="row">
+              <div class="col-lg-6">
+                <label>Options:</label>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" ng-model="mc.options.autoClose"
+                    ng-change="mc.optionChange(mc.options)"> Auto Close
+                  </label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label>Duration:</label>
+                <input type="text" class ="form-control" value="success"
+                ng-model="mc.options.duration" ng-change="mc.optionChange(mc.options)">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label>Toast Is Closeable:</label>
             <div class="checkbox">
               <label>
                 <input type="checkbox" ng-model="mc.toast.closeable"> Closeable
+                (<b>Prevents the autoClose property</b>)
               </label>
             </div>
           </div>
 
-          <button class='btn btn-default btn-block' ng-click='mc.show(mc.toast)'>
-            Show Toast
-          </button>
+          <div class="form-group">
+            <button class='btn btn-default' ng-click='mc.show(mc.toast)'>
+              Show Toast
+            </button>
+            <button class='btn btn-default' ng-click='mc.clear()'>
+              Clear All Toast
+            </button>
+            <button class='btn btn-default' ng-click='mc.destroy()'>
+              Destroy Toast List
+            </button>
+          </div>
         </form>
       </div>
     </div>

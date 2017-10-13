@@ -23,10 +23,12 @@ function toastListDirective() {
         return (
             '<div class="toast-container">' +
                 '<div class="toast toast-{{ ::toast.type }}"' +
-                ' ng-repeat="toast in $ctrl.toasts track by toast.id">' +
+                ' ng-repeat="toast in $ctrl.toasts track by toast.id"' +
+                ' ng-mouseover="::$ctrl.retain(toast.id)"' +
+                ' ng-mouseleave="::$ctrl.dismiss(toast.id)">' +
                     '<button type="button" class="toast-close" data-dismiss="toast" aria-label="Close"' +
                     ' ng-if="::toast.closeable"' +
-                    ' ng-click="$ctrl.dismiss(toast.id)">' +
+                    ' ng-click="::$ctrl.remove(toast.id)">' +
                         '<span aria-hidden="true">&times;</span>' +
                     '</button>' +
                     '{{ ::toast.content }}' +
@@ -36,18 +38,31 @@ function toastListDirective() {
     }
 }
 
-ToastListController.$inject = ['toastList'];
+ToastListController.$inject = ['toast', 'toastList'];
 
 /* @ngInject */
-function ToastListController(toastList) {
+function ToastListController(toast, toastList) {
     var vm = this;
 
     vm.$onInit = function () {
         vm.toasts = toastList.all();
     };
 
-    vm.dismiss = function (toastId) {
+    vm.$onDestroy = function () {
+        toastList.clear();
+        toast.destroy();
+    };
+
+    vm.remove = function (toastId) {
         toastList.remove(toastId);
+    };
+
+    vm.retain = function (toastId) {
+        toast.retain(toastId);
+    };
+
+    vm.dismiss = function (toastId) {
+        toast.dismiss(toastId);
     };
 }
 
@@ -63,6 +78,7 @@ function ToastListFactory() {
     var toasts = [];
     var service = {
         all: all,
+        clear: clear,
         add: add,
         remove: remove,
         _generateId: _generateId,
@@ -73,6 +89,10 @@ function ToastListFactory() {
 
     function all() {
         return toasts;
+    }
+
+    function clear() {
+        toasts.length = 0;
     }
 
     function add(toast) {
@@ -146,13 +166,18 @@ function toast() {
 
     function factory($compile, $document, $rootScope, $timeout, toastList) {
         var toastListDirective = {};
+        var toastsForDismissal = {};
         var service = {
             config: config,
             make: make,
             info: info,
             success: success,
             warning: warning,
-            error: error
+            error: error,
+            dismiss: dismiss,
+            retain: retain,
+            destroy: destroy,
+            clear: toastList.clear,
         };
 
         return service;
@@ -174,32 +199,47 @@ function toast() {
                 type: type
             });
 
-            _autoDismissToast(_toast);
+            if (defaults.autoClose && !_toast.closeable) dismiss(_toast.id);
             return _toast;
         }
 
-        function _autoDismissToast(_toast) {
-            if (defaults.autoClose && !_toast.closeable) {
-                $timeout(function () {
-                    toastList.remove(_toast.id);
-                }, defaults.duration);
-            }
+        function dismiss(id) {
+            toastsForDismissal[id] = $timeout(function () {
+                toastList.remove(id);
+            }, defaults.duration);
+        }
+
+        function retain(id) {
+            var dismissTimeout = toastsForDismissal[id];
+            if (dismissTimeout) $timeout.cancel(dismissTimeout);
         }
 
         function info(message, closeable) {
-            make('info', message, closeable);
+            return make('info', message, closeable);
         }
 
         function success(message, closeable) {
-            make('success', message, closeable);
+            return make('success', message, closeable);
         }
 
         function warning(message, closeable) {
-            make('warning', message, closeable);
+            return make('warning', message, closeable);
         }
 
         function error (message, closeable) {
-            make('error', message, closeable);
+            return make('error', message, closeable);
+        }
+
+        function destroy() {
+            // Cache the values then immediately clear the toastListDirective
+            // to prevent infinite call stack because, this is called
+            // in the .$onDestroy of toast-list directive
+            var scope = toastListDirective.scope;
+            var element = toastListDirective.element;
+            toastListDirective = {};
+
+            if (scope) scope.$destroy();
+            if (element) element.remove();
         }
     }
 }

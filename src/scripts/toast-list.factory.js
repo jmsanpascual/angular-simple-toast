@@ -7,6 +7,7 @@ function ToastListFactory() {
     var toasts = [];
     var service = {
         all: all,
+        clear: clear,
         add: add,
         remove: remove,
         _generateId: _generateId,
@@ -17,6 +18,10 @@ function ToastListFactory() {
 
     function all() {
         return toasts;
+    }
+
+    function clear() {
+        toasts.length = 0;
     }
 
     function add(toast) {

@@ -22,10 +22,12 @@ function toastListDirective() {
         return (
             '<div class="toast-container">' +
                 '<div class="toast toast-{{ ::toast.type }}"' +
-                ' ng-repeat="toast in $ctrl.toasts track by toast.id">' +
+                ' ng-repeat="toast in $ctrl.toasts track by toast.id"' +
+                ' ng-mouseover="::$ctrl.retain(toast.id)"' +
+                ' ng-mouseleave="::$ctrl.dismiss(toast.id)">' +
                     '<button type="button" class="toast-close" data-dismiss="toast" aria-label="Close"' +
                     ' ng-if="::toast.closeable"' +
-                    ' ng-click="$ctrl.dismiss(toast.id)">' +
+                    ' ng-click="::$ctrl.remove(toast.id)">' +
                         '<span aria-hidden="true">&times;</span>' +
                     '</button>' +
                     '{{ ::toast.content }}' +
@@ -35,18 +37,31 @@ function toastListDirective() {
     }
 }
 
-ToastListController.$inject = ['toastList'];
+ToastListController.$inject = ['toast', 'toastList'];
 
 /* @ngInject */
-function ToastListController(toastList) {
+function ToastListController(toast, toastList) {
     var vm = this;
 
     vm.$onInit = function () {
         vm.toasts = toastList.all();
     };
 
-    vm.dismiss = function (toastId) {
+    vm.$onDestroy = function () {
+        toastList.clear();
+        toast.destroy();
+    };
+
+    vm.remove = function (toastId) {
         toastList.remove(toastId);
+    };
+
+    vm.retain = function (toastId) {
+        toast.retain(toastId);
+    };
+
+    vm.dismiss = function (toastId) {
+        toast.dismiss(toastId);
     };
 }
 
