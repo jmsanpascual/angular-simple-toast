@@ -1,6 +1,6 @@
 {
   "name": "angular-simple-toast",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple toast module for Angular 1",
   "main": "dist/angular-simple-toast.js",
   "scripts": {
