@@ -1,5 +1,6 @@
 # Angular Simple Toast
 A simple toast module for Angular 1
+[DEMO](https://jmsanpascual.github.io/angular-simple-toast/)
 
 ## Getting Started
 1. Go to your project directory using your command line tool then install the project using npm.
